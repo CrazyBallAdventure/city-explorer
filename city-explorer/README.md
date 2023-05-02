@@ -20,6 +20,16 @@
 ## Credit and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
 
+Name of feature: Location
+
+Estimate of time needed to complete: 1~2 hours
+
+Start time: 1:50
+
+Finish time: 2:30
+
+Actual time needed to complete: 30~ minutes
+
 
 # Getting Started with Create React App
 
