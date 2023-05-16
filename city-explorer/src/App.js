@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import { Button, Form, Col, Row } from 'react-bootstrap';
+import './App.css'
 
 class App extends Component {
   state = {
@@ -21,11 +22,11 @@ class App extends Component {
 
   render() {
     return (
-      <div className="mt-5 container">
+      <div className="explorer-container mt-5">
         <Form>
           <Form.Group as={Row} controlId="formSearch">
             <Form.Label column sm={2}>
-              Search for a city
+              Where are you trying to go?
             </Form.Label>
             <Col sm={8}>
               <Form.Control
@@ -37,7 +38,7 @@ class App extends Component {
             </Col>
             <Col sm={2}>
               <Button variant="primary" onClick={this.getLocation}>
-                Explore!
+                Vamonos!
               </Button>
             </Col>
           </Form.Group>
@@ -45,7 +46,7 @@ class App extends Component {
 
         {this.state.location.lat !== null && this.state.location.lon !== null && (
           <div className="mt-3">
-            <h3>You're exploring {this.state.location.display_name}!</h3>
+            <h3>You have arrived at {this.state.location.display_name}!</h3>
             <Row>
               <Col>
                 <h4>Latitude:</h4>
