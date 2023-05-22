@@ -8,14 +8,21 @@ class App extends Component {
     searchquery: '',
     location: { lat: null, lon: null, display_name: null },
     mapUrl: '',
+    forecastData: false,
+    displayWeather: [],
     error: false
   };
 
   getLocation = async () => {
 
-    const API = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_CITY_KEY}&q=${this.state.searchquery}&format=json`;
+    const API = `https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_CITY_KEY}&q=${this.state.searchquery}&format=json`;
     try {
-      const res = await axios.get(API)
+      const res = await axios.get(API).then(
+        (response) => {
+          console.log (response);
+          this.getForecast(response.data[0].lat, response.data[0].lon);
+        }
+      )
       const { lat, lon, display_name } = res.data[0];
       const mapAPI = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_CITY_KEY}&center=${lat},${lon}&zoom=13`;
       this.setState({ mapUrl: mapAPI });
@@ -26,6 +33,31 @@ class App extends Component {
     }
 
   };
+
+setforcastData = (weather) => {
+  this.setState({forecastData: weather})
+}
+
+setdisplayWeather = (weather2) => {
+  this.setState({displayWeather: weather2})
+}
+
+  getForecast = async (lat, lon) => {
+    lat = (Math.round(lat * 100) / 100).toFixed(2);
+    lon = (Math.round(lon * 100) / 100).toFixed(2);
+     const weatherAPI = `http://localhost:3001/weather?lat=${lat}&lon=${lon}`;
+    try {
+      const res = await axios.get(weatherAPI);
+      console.log(res.data);
+      this.setforcastData(res.data);
+      this.setdisplayWeather(true);
+      // this.setState({ forecastData });
+    } catch (error) {
+      console.log(error.message)
+      this.setState({ error: true })
+    }
+  }
+
   render() {
     let errorMessage = ""
 
@@ -82,6 +114,8 @@ class App extends Component {
             <img src={this.state.mapUrl} alt="Map of city" />
           </div>
         )}
+
+
       </div>
     );
   }
