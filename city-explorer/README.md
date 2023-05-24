@@ -1,7 +1,7 @@
 # City Explorer
 
 **Author**: Lui
-**Version**: 1.0.0/1.0.1 - Location, Lat & Lon
+**Version**: 1.0.0 - Setup/1.0.1 - Location, Lat & Lon/1.0.2 - Error message 
 
 ## Overview
 My website is being built to help people find a location on a map and be able to view the weather for that specific area
@@ -29,6 +29,16 @@ Start time: 1:50
 Finish time: 2:30
 
 Actual time needed to complete: 30~ minutes
+
+
+Name of feature: Back + Front end & Error (lab 7)
+
+Estimate of time needed to complete: 1 day
+Start time: 1:15pm
+
+Finish time: 3:12
+
+Actual time needed to complete: 1~ hour
 
 
 # Getting Started with Create React App
