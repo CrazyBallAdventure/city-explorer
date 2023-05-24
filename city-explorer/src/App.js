@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import { Button, Form, Col, Row } from 'react-bootstrap';
 import './App.css'
+import Weather from './weather';
 
 class App extends Component {
   state = {
@@ -10,6 +11,7 @@ class App extends Component {
     mapUrl: '',
     forecastData: false,
     displayWeather: [],
+    weatherForecast: [],
     error: false
   };
 
@@ -27,6 +29,7 @@ class App extends Component {
       console.log(error.message)
       this.setState({ error: true })
     }
+    this.getForecast()
 
   };
 
@@ -41,10 +44,11 @@ setdisplayWeather = (weather2) => {
   getForecast = async (lat, lon) => {
     lat = (Math.round(lat * 100) / 100).toFixed(2);
     lon = (Math.round(lon * 100) / 100).toFixed(2);
-     const weatherAPI = `http://localhost:3001/weather?lat=${lat}&lon=${lon}`;
+     const weatherAPI = `http://localhost:3001/weather?searchQuery=${this.state.searchquery}`;
     try {
       const res = await axios.get(weatherAPI);
       console.log(res.data);
+      this.setState({weatherForecast: res.data})
       this.setforcastData(res.data);
       this.setdisplayWeather(true);
       // this.setState({ forecastData });
@@ -110,7 +114,7 @@ setdisplayWeather = (weather2) => {
             <img src={this.state.mapUrl} alt="Map of city" />
           </div>
         )}
-
+        <Weather weather={this.state.weatherForecast}></Weather>
 
       </div>
     );
