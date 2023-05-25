@@ -18,43 +18,25 @@ class App extends Component {
   };
 
   getLocation = async () => {
-    const API = `https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_CITY_KEY}&q=${this.state.searchquery}&format=json`;
     try {
+      const API = `https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_CITY_KEY}&q=${this.state.searchquery}&format=json`;
       const response = await axios.get(API);
       const { lat, lon, display_name } = response.data[0];
       const mapAPI = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_CITY_KEY}&center=${lat},${lon}&zoom=13`;
       console.log(mapAPI);
       this.setState({ mapUrl: mapAPI });
       this.setState({ location: { lat, lon, display_name } });
-    } catch (error) {
-      console.log(error.message);
-      this.setState({ error: true });
-    }
-    this.getForecast();
-  };
-
-  setForecastData = (weather) => {
-    this.setState({ forecastData: weather });
-  };
-
-  setDisplayWeather = (weather2) => {
-    this.setState({ displayWeather: weather2 });
-  };
-
-  getForecast = async () => {
-    const weatherAPI = `http://localhost:3001/weather?searchQuery=${this.state.searchquery}`;
-    const movieAPI = `http://localhost:3001/movie?searchQuery=${this.state.searchquery}`;
-    try {
-      const res = await axios.get(weatherAPI);
+  
+      const weatherAPI = `https://cityexplorerapi-okwx.onrender.com/weather?lat=${lat}&lon=${lon}&searchQuery=${this.state.searchQuery}`;
+      const weatherRes = await axios.get(weatherAPI);
+      // Handle the response from the /weather endpoint
+      this.setState({ location: { lat, lon, display_name }, mapUrl: `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_CITY_KEY}&center=${lat},${lon}`, forecast: weatherRes.data });
+  
+      const movieAPI = `https://cityexplorerapi-okwx.onrender.com/movies?searchQuery=${this.state.searchQuery}`;
       const movieRes = await axios.get(movieAPI);
-      console.log(movieRes.data);
-      console.log(res.data);
-      this.setState({ weatherForecast: res.data });
-      this.setForecastData(res.data);
-      this.setDisplayWeather(true);
+      this.setState({ movies: movieRes.data });
     } catch (error) {
-      console.log(error.message);
-      this.setState({ error: true });
+      this.setState({ error });
     }
   };  
 
