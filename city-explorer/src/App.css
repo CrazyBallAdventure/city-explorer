@@ -40,6 +40,7 @@
 body {
   background-image: url(https://e1.pxfuel.com/desktop-wallpaper/553/461/desktop-wallpaper-night-the-city-style-city-fantasy-art-style-neon-illustration-surreal-cyberpunk-synth-environments-retrowave-synthwave-futuresynth-section-%D0%B0%D1%80%D1%82-night-city-retrowave.jpg);
   background-repeat: no-repeat;
+  background-attachment: fixed;
   background-size: 1555px;
 }
 
