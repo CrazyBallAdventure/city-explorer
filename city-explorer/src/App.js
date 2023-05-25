@@ -1,8 +1,9 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import { Button, Form, Col, Row } from 'react-bootstrap';
-import './App.css'
+import './App.css';
 import Weather from './weather';
+import Movies from './movies';
 
 class App extends Component {
   state = {
@@ -12,61 +13,59 @@ class App extends Component {
     forecastData: false,
     displayWeather: [],
     weatherForecast: [],
-    error: false
+    error: false,
+    movies: []
   };
 
   getLocation = async () => {
-
     const API = `https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_CITY_KEY}&q=${this.state.searchquery}&format=json`;
     try {
-      const response = await axios.get(API)
+      const response = await axios.get(API);
       const { lat, lon, display_name } = response.data[0];
       const mapAPI = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_CITY_KEY}&center=${lat},${lon}&zoom=13`;
-      console.log(mapAPI)
+      console.log(mapAPI);
       this.setState({ mapUrl: mapAPI });
       this.setState({ location: { lat, lon, display_name } });
     } catch (error) {
-      console.log(error.message)
-      this.setState({ error: true })
+      console.log(error.message);
+      this.setState({ error: true });
     }
-    this.getForecast()
-
+    this.getForecast();
   };
 
-setforcastData = (weather) => {
-  this.setState({forecastData: weather})
-}
+  setForecastData = (weather) => {
+    this.setState({ forecastData: weather });
+  };
 
-setdisplayWeather = (weather2) => {
-  this.setState({displayWeather: weather2})
-}
+  setDisplayWeather = (weather2) => {
+    this.setState({ displayWeather: weather2 });
+  };
 
-  getForecast = async (lat, lon) => {
-    lat = (Math.round(lat * 100) / 100).toFixed(2);
-    lon = (Math.round(lon * 100) / 100).toFixed(2);
-     const weatherAPI = `http://localhost:3001/weather?searchQuery=${this.state.searchquery}`;
+  getForecast = async () => {
+    const weatherAPI = `http://localhost:3001/weather?searchQuery=${this.state.searchquery}`;
+    const movieAPI = `http://localhost:3001/movie?searchQuery=${this.state.searchquery}`;
     try {
       const res = await axios.get(weatherAPI);
+      const movieRes = await axios.get(movieAPI);
+      console.log(movieRes.data);
       console.log(res.data);
-      this.setState({weatherForecast: res.data})
-      this.setforcastData(res.data);
-      this.setdisplayWeather(true);
-      // this.setState({ forecastData });
+      this.setState({ weatherForecast: res.data });
+      this.setForecastData(res.data);
+      this.setDisplayWeather(true);
     } catch (error) {
-      console.log(error.message)
-      this.setState({ error: true })
+      console.log(error.message);
+      this.setState({ error: true });
     }
-  }
+  };  
 
   render() {
-    let errorMessage = ""
+    let errorMessage = '';
 
     if (this.state.error === true) {
-      errorMessage = "ERROR Message"
+      errorMessage = 'ERROR Message';
     } else {
-      errorMessage = ""
+      errorMessage = '';
     }
-
 
     return (
       <div className="explorer-container mt-5">
@@ -92,7 +91,6 @@ setdisplayWeather = (weather2) => {
         </Form>
         {errorMessage}
 
-
         {this.state.location.lat !== null && this.state.location.lon !== null && (
           <div className="mt-3">
             <h3>You have arrived at {this.state.location.display_name}!</h3>
@@ -114,11 +112,12 @@ setdisplayWeather = (weather2) => {
             <img src={this.state.mapUrl} alt="Map of city" />
           </div>
         )}
-        <Weather weather={this.state.weatherForecast}></Weather>
 
+        <Weather weather={this.state.weatherForecast} />
+        <Movies movies={this.state.movies} />
       </div>
     );
   }
 }
-// grrrrr grrrrrrrrrrr
+
 export default App;
