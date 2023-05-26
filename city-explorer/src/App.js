@@ -19,6 +19,12 @@ class App extends Component {
 
   getLocation = async () => {
     try {
+      if (this.state.searchquery.trim() === '') {
+        // Empty search query, set error state
+        this.setState({ error: true });
+        return;
+      }
+
       const API = `https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_CITY_KEY}&q=${this.state.searchquery}&format=json`;
       const response = await axios.get(API);
       const { lat, lon, display_name } = response.data[0];
@@ -34,7 +40,7 @@ class App extends Component {
       const movieRes = await axios.get(movieAPI);
       this.setState({ movies: movieRes.data });
     } catch (error) {
-      this.setState({ error });
+      this.setState({ error: true });
     }
   };
   
@@ -42,9 +48,7 @@ class App extends Component {
     let errorMessage = '';
 
     if (this.state.error === true) {
-      errorMessage = 'ERROR Message';
-    } else {
-      errorMessage = '';
+      errorMessage = 'Invalid input. Please enter a valid city name.';
     }
 
     return (
