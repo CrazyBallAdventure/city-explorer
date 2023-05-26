@@ -24,21 +24,20 @@ class App extends Component {
       const { lat, lon, display_name } = response.data[0];
       const mapAPI = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_CITY_KEY}&center=${lat},${lon}&zoom=13`;
       console.log(mapAPI);
-      this.setState({ mapUrl: mapAPI });
-      this.setState({ location: { lat, lon, display_name } });
+      this.setState({ mapUrl: mapAPI, location: { lat, lon, display_name }, error: false });
   
-      const weatherAPI = `https://cityexplorerapi-okwx.onrender.com/weather?lat=${lat}&lon=${lon}&searchquery=${this.state.searchquery}`;
+      const weatherAPI = `https://cityexplorerapi-okwx.onrender.com/weather?lat=${lat}&lon=${lon}&searchQuery=${this.state.searchquery}`;
       const weatherRes = await axios.get(weatherAPI);
-      // Handle the response from the /weather endpoint
-      this.setState({ location: { lat, lon, display_name }, mapUrl: `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_CITY_KEY}&center=${lat},${lon}`, weatherForecast: weatherRes.data });
+      this.setState({ weatherForecast: weatherRes.data });
   
-      const movieAPI = `https://cityexplorerapi-okwx.onrender.com/movies?searchquery=${this.state.searchquery}`;
+      const movieAPI = `https://cityexplorerapi-okwx.onrender.com/movies?searchQuery=${this.state.searchquery}`;
       const movieRes = await axios.get(movieAPI);
       this.setState({ movies: movieRes.data });
     } catch (error) {
       this.setState({ error });
     }
   };
+  
   
 
   render() {
