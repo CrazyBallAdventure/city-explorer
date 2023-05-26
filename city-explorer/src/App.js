@@ -30,7 +30,7 @@ class App extends Component {
       const weatherAPI = `https://cityexplorerapi-okwx.onrender.com/weather?lat=${lat}&lon=${lon}&searchQuery=${this.state.searchQuery}`;
       const weatherRes = await axios.get(weatherAPI);
       // Handle the response from the /weather endpoint
-      this.setState({ location: { lat, lon, display_name }, mapUrl: `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_CITY_KEY}&center=${lat},${lon}`, forecast: weatherRes.data });
+      this.setState({ location: { lat, lon, display_name }, mapUrl: `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_CITY_KEY}&center=${lat},${lon}`, weatherForecast: weatherRes.data });
   
       const movieAPI = `https://cityexplorerapi-okwx.onrender.com/movies?searchQuery=${this.state.searchQuery}`;
       const movieRes = await axios.get(movieAPI);
@@ -38,7 +38,8 @@ class App extends Component {
     } catch (error) {
       this.setState({ error });
     }
-  };  
+  };
+  
 
   render() {
     let errorMessage = '';
