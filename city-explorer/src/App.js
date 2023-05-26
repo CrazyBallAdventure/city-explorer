@@ -48,7 +48,7 @@ class App extends Component {
     let errorMessage = '';
 
     if (this.state.error === true) {
-      errorMessage = 'Invalid input. Please enter a valid city name.';
+      errorMessage = 'That aint a city, fool! Please try again.';
     }
 
     return (
