@@ -10,11 +10,11 @@ class App extends Component {
     searchquery: '',
     location: { lat: null, lon: null, display_name: null },
     mapUrl: '',
-    forecastData: false,
+    forecastData: null,
     displayWeather: [],
     weatherForecast: [],
     error: false,
-    movies: []
+    movies: null
   };
 
   getLocation = async () => {
