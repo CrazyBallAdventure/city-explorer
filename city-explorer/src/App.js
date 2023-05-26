@@ -26,11 +26,11 @@ class App extends Component {
       console.log(mapAPI);
       this.setState({ mapUrl: mapAPI, location: { lat, lon, display_name }, error: false });
   
-      const weatherAPI = `https://cityexplorerapi-okwx.onrender.com/weather?lat=${lat}&lon=${lon}&searchQuery=${this.state.searchquery}`;
+      const weatherAPI = `https://cityexplorerapi-okwx.onrender.com/weather?lat=${lat}&lon=${lon}&searchquery=${this.state.searchquery}`;
       const weatherRes = await axios.get(weatherAPI);
       this.setState({ weatherForecast: weatherRes.data });
   
-      const movieAPI = `https://cityexplorerapi-okwx.onrender.com/movies?searchQuery=${this.state.searchquery}`;
+      const movieAPI = `https://cityexplorerapi-okwx.onrender.com/movies?searchquery=${this.state.searchquery}`;
       const movieRes = await axios.get(movieAPI);
       this.setState({ movies: movieRes.data });
     } catch (error) {
@@ -38,8 +38,6 @@ class App extends Component {
     }
   };
   
-  
-
   render() {
     let errorMessage = '';
 
