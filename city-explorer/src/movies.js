@@ -16,7 +16,7 @@ const Movies = ({ movies }) => {
 
     return (
         <div className="movie-container">
-            <h2>Movie Forecast</h2>
+            <h2>Movie Index</h2>
             <Card>
                 <Card.Body>
                     <Table striped bordered hover>
