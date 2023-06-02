@@ -1,7 +1,7 @@
 # City Explorer
 
 **Author**: Lui
-**Version**: 1.0.0 - Setup/1.0.1 - Location, Lat & Lon/1.0.2 - Error message/1.0.3 - Refactored components 
+**Version**: 1.0.0 - Setup/1.0.1 - Location, Lat & Lon/1.0.2 - Error message/1.0.3 - Refactored components/1.0.4 - Cache 
 
 ## Overview
 My website is being built to help people find a location on a map and be able to view the weather for that specific area, to get the weather of that area, and to see what movies are airing in the area as well
@@ -50,6 +50,17 @@ Start time: 10:12
 Finish time: 11:40
 
 Actual time needed to complete: 1 hour and 28 mins
+
+
+Name of feature: Cache (lab 10)
+
+Estimate of time needed to complete: 1 hour
+
+Start time: 10:12
+
+Finish time: 11:15
+
+Actual time needed to complete: 1 hour and 3 mins
 
 # Getting Started with Create React App
 
